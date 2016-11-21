@@ -17,15 +17,51 @@ public class PlayerController : MonoBehaviour
 	private bool 			isVisible = false;
 
 	void Start() { }
+
 	void Update() {	
+		CanIdle ();
 		CanMove ();
 	}
-	void CanIdle() { }
-	void CheckIfCanMove() {	}
-	void SetMove() { }
+
+	void CanIdle() {
+		if (isIdle) 
+		{
+			if (Input.GetKeyDown (KeyCode.UpArrow) 		||
+			    Input.GetKeyDown (KeyCode.DownArrow) 	||
+			    Input.GetKeyDown (KeyCode.LeftArrow) 	||
+			    Input.GetKeyDown (KeyCode.RightArrow)) 		
+			{
+				CheckIfCanMove ();			
+			}
+		}
+	}
+
+	void CheckIfCanMove() 
+	{	
+		// raycast find if collider box in front of player
+		RaycastHit hit;
+		Physics.Raycast (transform.position, -chick.transform.up, out hit, colliderDistCheck);
+
+		Debug.DrawRay (this.transform.position, -chick.transform.up * colliderDistCheck, Color.red, 0.5f);
+
+		if (hit.collider == null || !hit.collider.tag.Equals("collider")) {
+			SetMove ();
+		} else {
+			Debug.Log ("Hit something with collider tag");
+		}
+	}
+
+	void SetMove() { 
+		Debug.Log ("Hit nothing with the raycast so keep moving");
+
+		isIdle = false;
+		isMoving = true;
+		isJumpStart = true;
+	}
 
 	void CanMove() {
-		if (isMoving) {
+		if (isMoving) 
+		{
 			if (Input.GetKeyUp (KeyCode.UpArrow)) {
 				Moving (new Vector3 (transform.position.x, transform.position.y, transform.position.z + moveDistance));
 				SetMoveForwardState ();
@@ -40,10 +76,18 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void Moving(Vector3 pos) {
-		LeanTween.move (this.gameObject, pos, moveTime);
+		isIdle 		= false;
+		isMoving 	= false;
+		isJumping 	= true;
+		isJumpStart = false;
+		LeanTween.move (this.gameObject, pos, moveTime).setOnComplete(MoveComplete);
 	}
 
-	void MoveComplete() { }
+	void MoveComplete() 
+	{ 
+		isIdle = true;
+		isJumping = false;
+	}
 
 	void SetMoveForwardState() { }
 	void IsVisible() { }
