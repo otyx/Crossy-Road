@@ -13,14 +13,20 @@ public class PlayerController : MonoBehaviour
 	public 	bool 			isJumpStart = false;
 	public 	ParticleSystem 	particle = null;
 	public 	GameObject 		chick = null;
-	private Renderer 		renderer = null;
+	private Renderer 		chickRenderer = null;
 	private bool 			isVisible = false;
 
-	void Start() { }
+	void Start() { 
+		chickRenderer = chick.GetComponent<Renderer> ();
+	
+	}
 
 	void Update() {	
+		// TODO Manager -> CanPlay?
+		if (isDead)	return;
 		CanIdle ();
 		CanMove ();
+		IsVisible ();
 	}
 
 	void CanIdle() {
@@ -90,7 +96,24 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void SetMoveForwardState() { }
-	void IsVisible() { }
-	public void GotHit() { }
+
+	void IsVisible() { 
+		Debug.Log (chickRenderer.isVisible);
+		if (chickRenderer.isVisible) {
+			isVisible = true;
+		}
+		if (!chickRenderer.isVisible && isVisible) {
+			Debug.Log ("Player off screen - Apply GotHit()");
+			GotHit ();
+		}
+	}
+
+	public void GotHit() { 
+		isDead = true;
+		ParticleSystem.EmissionModule em = particle.emission;
+		em.enabled = true;
+
+		// TODO: Manager -> GameOver  state
+	}
 
 }
