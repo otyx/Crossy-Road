@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
 	{ 
 		isIdle = true;
 		isJumping = false;
+		isJumpStart = false;
 	}
 
 	void SetMoveForwardState() { }
