@@ -113,7 +113,6 @@ public class PlayerController : MonoBehaviour
 		isDead = true;
 		ParticleSystem.EmissionModule em = particle.emission;
 		em.enabled = true;
-
 		// TODO: Manager -> GameOver  state
 	}
 
