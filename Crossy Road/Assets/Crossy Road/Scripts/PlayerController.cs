@@ -18,12 +18,15 @@ public class PlayerController : MonoBehaviour
 
 	void Start() { 
 		chickRenderer = chick.GetComponent<Renderer> ();
-	
 	}
 
 	void Update() {	
-		// TODO Manager -> CanPlay?
-		if (isDead)	return;
+		if (!Manager.instance.CanPlay ()) {
+			return;
+		}
+		if (isDead) {
+			return;
+		}
 		CanIdle ();
 		CanMove ();
 		IsVisible ();
@@ -96,7 +99,9 @@ public class PlayerController : MonoBehaviour
 		isJumpStart = false;
 	}
 
-	void SetMoveForwardState() { }
+	void SetMoveForwardState() {
+		Manager.instance.UpdateDistanceCount ();
+	}
 
 	void IsVisible() { 
 		Debug.Log (chickRenderer.isVisible);
@@ -113,7 +118,8 @@ public class PlayerController : MonoBehaviour
 		isDead = true;
 		ParticleSystem.EmissionModule em = particle.emission;
 		em.enabled = true;
-		// TODO: Manager -> GameOver  state
+
+		Manager.instance.GameOver ();
 	}
 
 }

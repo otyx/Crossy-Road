@@ -20,7 +20,7 @@ public class Coin : MonoBehaviour {
 		if (other.tag.Equals ("Player")) {
 			Debug.Log ("Player picked up a coin");
 
-			// TODO Manager -> update coin count
+			Manager.instance.UpdateCoinCount (coinValue);
 
 			Destroy (this.gameObject);
 		}

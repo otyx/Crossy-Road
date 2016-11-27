@@ -19,7 +19,7 @@ public class CameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// TODO manger -> canPlay () - no automove if not playing
+		if (!Manager.instance.CanPlay ()) return;
 
 		if (autoMove) {
 			depth = this.gameObject.transform.position += new Vector3 (0, 0, speed * Time.deltaTime);
