@@ -26,6 +26,7 @@ public class CameraFollow : MonoBehaviour {
 			pos = Vector3.Lerp (gameObject.transform.position, player.transform.position + offset, Time.deltaTime);
 			gameObject.transform.position = new Vector3 (pos.x, pos.y, depth.z);
 		} else {
+			// centre camera on player
 			pos = Vector3.Lerp (gameObject.transform.position, player.transform.position + offset, Time.deltaTime);
 			gameObject.transform.position = new Vector3 (pos.x, pos.y, pos.z);
 		}

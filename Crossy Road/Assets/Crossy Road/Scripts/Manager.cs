@@ -12,7 +12,7 @@ public class Manager : MonoBehaviour {
 
 	private int currentCoins = 0;
 	private int currentDistance = 0;
-	private bool canPlay = true;
+	private bool canPlay = false;
 
 	private static Manager s_instance;
 	public static Manager instance {
