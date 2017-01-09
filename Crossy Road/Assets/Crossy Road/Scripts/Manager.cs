@@ -9,6 +9,7 @@ public class Manager : MonoBehaviour {
 	public Text distanceText = null;
 	public Camera gameCamera;
 	public GameObject guiGameOver = null;
+	public LevelGenerator levelGenerator;
 
 	private int currentCoins = 0;
 	private int currentDistance = 0;
@@ -26,13 +27,9 @@ public class Manager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		// TODO: Level Generator start up
+		levelGenerator.GeneratePieces (50);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	public void UpdateCoinCount(int val) {
 		Debug.Log ("Picked up another coin for value " + val);
@@ -45,7 +42,7 @@ public class Manager : MonoBehaviour {
 		currentDistance += d;
 		distanceText.text = currentDistance.ToString ();
 
-		// TODO: generate new level piece here.
+		levelGenerator.GeneratePiece ();
 	}
 
 	public bool CanPlay() {

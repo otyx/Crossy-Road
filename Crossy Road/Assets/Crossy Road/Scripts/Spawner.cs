@@ -67,6 +67,7 @@ public class Spawner : MonoBehaviour {
 
 	Vector3 GetSpawnPosition() {
 		if (useSpawnPlacement) {
+			//return new Vector3 (Random.Range(spawnLeftPos, spawnRightPos), startPos.position.y, startPos.position.z);
 			return new Vector3 (Random.Range(spawnLeftPos, spawnRightPos), startPos.position.y, startPos.position.z);
 		} else {
 			return startPos.position;

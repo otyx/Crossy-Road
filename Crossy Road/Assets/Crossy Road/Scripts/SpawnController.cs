@@ -26,7 +26,6 @@ public class SpawnController : MonoBehaviour {
 			spawnersLeft [i].goLeft = goLeft;
 			spawnersLeft [i].gameObject.SetActive (goRight);
 			spawnersLeft [i].spawnLeftPos = spawnersLeft [i].transform.position.x;
-
 			spawnersLeft [i].spawnRightPos = -1 * spawnersLeft [i].transform.position.x;
 		}
 		for (int i = 0; i < spawnersRight.Count; i++) {
@@ -34,7 +33,6 @@ public class SpawnController : MonoBehaviour {
 			spawnersRight [i].goLeft = goLeft;
 			spawnersRight [i].gameObject.SetActive (goLeft);
 			spawnersRight [i].spawnLeftPos = spawnersRight [i].transform.position.x;
-
 			spawnersRight [i].spawnRightPos = -1 * spawnersRight [i].transform.position.x;
 		}
 	}
