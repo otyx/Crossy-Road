@@ -30,7 +30,7 @@ public class SpawnController : MonoBehaviour {
 		for (int i = 0; i < spawnersRight.Count; i++) {
 			spawnersRight [i].item = item;
 			spawnersRight [i].goLeft = goLeft;
-			spawnersRight [i].gameObject.SetActive (goLeft);
+			spawnersRight [i].gameObject.SetActive (goRight);
 			spawnersRight [i].spawnLeftPos = spawnersRight [i].transform.position.x;
 		}
 	}
