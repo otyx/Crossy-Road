@@ -12,9 +12,20 @@ public class PlayerController : MonoBehaviour
 	public 	bool 			isJumping = false;
 	public 	bool 			isJumpStart = false;
 	public 	ParticleSystem 	particle = null;
+	public 	ParticleSystem 	splash = null;
 	public 	GameObject 		chick = null;
 	private Renderer 		chickRenderer = null;
 	private bool 			isVisible = false;
+
+
+	public AudioClip audioIdle1 	= null;
+	public AudioClip audioIdle2 	= null;
+	public AudioClip audioSplash 	= null;
+	public AudioClip audioHop	  	= null;
+	public AudioClip audioHit 		= null;
+
+	public ParticleSystem particles = null;
+	public bool parentedToObject = false;
 
 	void Start() { 
 		chickRenderer = chick.GetComponent<Renderer> ();
@@ -40,7 +51,9 @@ public class PlayerController : MonoBehaviour
 			    Input.GetKeyDown (KeyCode.LeftArrow) 	||
 			    Input.GetKeyDown (KeyCode.RightArrow)) 		
 			{
-				CheckIfCanMove ();			
+				CheckIfCanMove ();	
+
+				PlayClip (audioIdle1);
 			}
 		}
 	}
@@ -89,6 +102,7 @@ public class PlayerController : MonoBehaviour
 		isMoving 	= false;
 		isJumping 	= true;
 		isJumpStart = false;
+		PlayClip (audioHop);
 		LeanTween.move (this.gameObject, pos, moveTime).setOnComplete(MoveComplete);
 	}
 
@@ -97,6 +111,8 @@ public class PlayerController : MonoBehaviour
 		isIdle = true;
 		isJumping = false;
 		isJumpStart = false;
+
+		PlayClip (audioIdle2);
 	}
 
 	void SetMoveForwardState() {
@@ -118,8 +134,20 @@ public class PlayerController : MonoBehaviour
 		isDead = true;
 		ParticleSystem.EmissionModule em = particle.emission;
 		em.enabled = true;
-
+		PlayClip (audioHit);
 		Manager.instance.GameOver ();
 	}
 
+	public void GotSoaked() { 
+		isDead = true;
+		ParticleSystem.EmissionModule em = splash.emission;
+		em.enabled = true;
+		chick.SetActive (false);
+		PlayClip (audioSplash);
+		Manager.instance.GameOver ();
+	}
+
+	public void PlayClip (AudioClip clip) {
+		gameObject.GetComponent<AudioSource> ().PlayOneShot (clip);
+	}
 }

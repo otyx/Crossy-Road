@@ -53,6 +53,7 @@ public class Spawner : MonoBehaviour {
 		//Debug.Log ("Spawn Item");
 		GameObject obj = Instantiate (item) as GameObject;
 		obj.transform.position = GetSpawnPosition ();
+		obj.transform.SetParent (this.transform);
 
 		float direction = 0;
 		if (goLeft) {

@@ -5,6 +5,7 @@ public class Coin : MonoBehaviour {
 
 
 	public int coinValue = 1;
+	public AudioClip audioClip= null;
 
 	// Use this for initialization
 	void Start () {
@@ -21,8 +22,9 @@ public class Coin : MonoBehaviour {
 			//Debug.Log ("Player picked up a coin");
 
 			Manager.instance.UpdateCoinCount (coinValue);
+			gameObject.GetComponent<AudioSource> ().PlayOneShot (audioClip);
 
-			Destroy (this.gameObject);
+			Destroy (this.gameObject,audioClip.length);
 		}
 	}
 }

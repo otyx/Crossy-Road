@@ -39,6 +39,7 @@ public class Mover : MonoBehaviour {
 			if (parentOnTrigger) {
 				//Debug.Log ("--> Parent to me");
 				other.transform.parent = this.transform;
+				other.GetComponent<PlayerController> ().parentedToObject = true;
 			}
 			if (hitBoxOnTrigger) {
 				other.GetComponent<PlayerController> ().GotHit ();
@@ -52,6 +53,7 @@ public class Mover : MonoBehaviour {
 			if (parentOnTrigger) {
 				//Debug.Log ("Exit");
 				other.transform.parent = null;
+				other.GetComponent<PlayerController> ().parentedToObject = false;
 			}
 		}
 	}
