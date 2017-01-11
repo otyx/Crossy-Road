@@ -56,12 +56,12 @@ public class PlayerController : MonoBehaviour
 		if (hit.collider == null || !hit.collider.tag.Equals("collider")) {
 			SetMove ();
 		} else {
-			Debug.Log ("Hit something with collider tag");
+			//Debug.Log ("Hit something with collider tag");
 		}
 	}
 
 	void SetMove() { 
-		Debug.Log ("Hit nothing with the raycast so keep moving");
+		//Debug.Log ("Hit nothing with the raycast so keep moving");
 
 		isIdle = false;
 		isMoving = true;
@@ -104,12 +104,12 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void IsVisible() { 
-		Debug.Log (chickRenderer.isVisible);
+		//Debug.Log (chickRenderer.isVisible);
 		if (chickRenderer.isVisible) {
 			isVisible = true;
 		}
 		if (!chickRenderer.isVisible && isVisible) {
-			Debug.Log ("Player off screen - Apply GotHit()");
+			//Debug.Log ("Player off screen - Apply GotHit()");
 			GotHit ();
 		}
 	}

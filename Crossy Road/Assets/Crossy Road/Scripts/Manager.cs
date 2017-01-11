@@ -10,6 +10,8 @@ public class Manager : MonoBehaviour {
 	public Camera gameCamera;
 	public GameObject guiGameOver = null;
 	public LevelGenerator levelGenerator;
+	public int preGenerateLanes;
+	public int numLanesPerUpdate;
 
 	private int currentCoins = 0;
 	private int currentDistance = 0;
@@ -27,22 +29,22 @@ public class Manager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		levelGenerator.GeneratePieces (50);
+		levelGenerator.GeneratePieces (preGenerateLanes);
 	}
 	
 
 	public void UpdateCoinCount(int val) {
-		Debug.Log ("Picked up another coin for value " + val);
+		//Debug.Log ("Picked up another coin for value " + val);
 		currentCoins += val;
 		coinText.text = currentCoins.ToString();
 	}
 
 	public void UpdateDistanceCount(int d=1) {
-		Debug.Log ("Player moved forward for " + d + " points");
+		//Debug.Log ("Player moved forward for " + d + " points");
 		currentDistance += d;
 		distanceText.text = currentDistance.ToString ();
 
-		levelGenerator.GeneratePiece ();
+		levelGenerator.GeneratePieces (numLanesPerUpdate);
 	}
 
 	public bool CanPlay() {

@@ -35,9 +35,9 @@ public class Mover : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.tag.Equals ("Player")) {
-			Debug.Log ("Enter"); 
+			//Debug.Log ("Enter"); 
 			if (parentOnTrigger) {
-				Debug.Log ("--> Parent to me");
+				//Debug.Log ("--> Parent to me");
 				other.transform.parent = this.transform;
 			}
 			if (hitBoxOnTrigger) {
@@ -50,7 +50,7 @@ public class Mover : MonoBehaviour {
 	void OnTriggerExit(Collider other) {
 		if (other.tag.Equals ("Player")) {
 			if (parentOnTrigger) {
-				Debug.Log ("Exit");
+				//Debug.Log ("Exit");
 				other.transform.parent = null;
 			}
 		}
