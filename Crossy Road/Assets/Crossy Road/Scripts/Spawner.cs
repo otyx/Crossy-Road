@@ -5,6 +5,7 @@ public class Spawner : MonoBehaviour {
 
 	public Transform startPos = null;
 
+
 	// spawn time based
 	public float delayMin = 1.5f;
 	public float delayMax = 5.0f; 
@@ -15,6 +16,7 @@ public class Spawner : MonoBehaviour {
 	public bool useSpawnPlacement = false; // if false then obj is a mover
 	public int minSpawnCount = 4;
 	public int maxSpawnCount = 20;
+
 
 	private float lastTime = 0;
 	private float delayTime = 0;
@@ -68,8 +70,9 @@ public class Spawner : MonoBehaviour {
 
 	Vector3 GetSpawnPosition() {
 		if (useSpawnPlacement) {
-			//return new Vector3 (Random.Range(spawnLeftPos, spawnRightPos), startPos.position.y, startPos.position.z);
-			return new Vector3 (Random.Range(spawnLeftPos, spawnRightPos), startPos.position.y, startPos.position.z);
+			int x = (int)Random.Range (spawnLeftPos, spawnRightPos);
+			Vector3 pos = new Vector3 (x, startPos.position.y, startPos.position.z);
+			return pos;
 		} else {
 			return startPos.position;
 		}

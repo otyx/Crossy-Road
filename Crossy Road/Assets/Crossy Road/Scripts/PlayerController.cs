@@ -46,16 +46,24 @@ public class PlayerController : MonoBehaviour
 	void CanIdle() {
 		if (isIdle) 
 		{
-			if (Input.GetKeyDown (KeyCode.UpArrow) 		||
-			    Input.GetKeyDown (KeyCode.DownArrow) 	||
-			    Input.GetKeyDown (KeyCode.LeftArrow) 	||
-			    Input.GetKeyDown (KeyCode.RightArrow)) 		
-			{
-				CheckIfCanMove ();	
-
-				PlayClip (audioIdle1);
+			if (Input.GetKeyDown (KeyCode.UpArrow)) {
+				CheckIfIdle (270, 0, 0);
+			}
+			if (Input.GetKeyDown (KeyCode.DownArrow)) {
+				CheckIfIdle (270, 180, 0);
+			}
+			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+				CheckIfIdle (270, -90, 0);
+			}
+			if (Input.GetKeyDown (KeyCode.RightArrow)) {
+				CheckIfIdle (270, 90, 0);
 			}
 		}
+	}
+
+	void CheckIfIdle(float x, float y, float z) {
+		chick.transform.rotation = Quaternion.Euler (x,y,z);
+		CheckIfCanMove ();
 	}
 
 	void CheckIfCanMove() 
@@ -70,6 +78,7 @@ public class PlayerController : MonoBehaviour
 			SetMove ();
 		} else {
 			//Debug.Log ("Hit something with collider tag");
+			isIdle = true;
 		}
 	}
 
@@ -112,7 +121,7 @@ public class PlayerController : MonoBehaviour
 		isJumping = false;
 		isJumpStart = false;
 
-		PlayClip (audioIdle2);
+		PlayRandomIdle (audioIdle2);
 	}
 
 	void SetMoveForwardState() {
@@ -145,6 +154,12 @@ public class PlayerController : MonoBehaviour
 		chick.SetActive (false);
 		PlayClip (audioSplash);
 		Manager.instance.GameOver ();
+	}
+
+	public void PlayRandomIdle(AudioClip clip) {
+		if (Random.Range (0, 12) < 4) {
+			PlayClip (clip);
+		}
 	}
 
 	public void PlayClip (AudioClip clip) {

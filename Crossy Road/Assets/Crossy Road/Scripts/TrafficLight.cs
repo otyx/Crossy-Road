@@ -3,13 +3,17 @@ using System.Collections;
 
 public class TrafficLight : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+	public GameObject light = null;
+
+	void OnTriggerEnter (Collider other) {
+		if (other.tag.Equals ("train")) {
+			light.SetActive (true);
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void OnTriggerExit(Collider other) {
+		if (other.tag.Equals ("train")) {
+			light.SetActive (false);
+		}
 	}
 }
