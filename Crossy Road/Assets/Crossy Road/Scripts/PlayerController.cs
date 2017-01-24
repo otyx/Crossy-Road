@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class PlayerController : MonoBehaviour 
 {
 	public 	float 			moveDistance = 1;
@@ -26,12 +27,21 @@ public class PlayerController : MonoBehaviour
 
 	public ParticleSystem particles = null;
 	public bool parentedToObject = false;
-
+	
+	// stores the current maximum Z-position moved to prevent distance counting if move back
+	// and forth.
+	private float furthestZPosition = 0.0f;
+	private float currentPosZ = -0.5f;
+	
 	void Start() { 
 		chickRenderer = chick.GetComponent<Renderer> ();
+		furthestZPosition = gameObject.transform.position.z;
+		currentPosZ = gameObject.transform.position.z;
+		//Debug.Log("furthestZPosition at Start: " + furthestZPosition + "(" + gameObject.transform.position.z + ")");
 	}
 
 	void Update() {	
+		
 		if (!Manager.instance.CanPlay ()) {
 			return;
 		}
@@ -95,8 +105,10 @@ public class PlayerController : MonoBehaviour
 		{
 			if (Input.GetKeyUp (KeyCode.UpArrow)) {
 				Moving (new Vector3 (transform.position.x, transform.position.y, transform.position.z + moveDistance));
+				currentPosZ++;
 				SetMoveForwardState ();
 			} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
+				currentPosZ--;
 				Moving (new Vector3 (transform.position.x, transform.position.y, transform.position.z - moveDistance));
 			} else if (Input.GetKeyUp (KeyCode.LeftArrow)) {
 				Moving (new Vector3 (transform.position.x - moveDistance, transform.position.y, transform.position.z));
@@ -125,7 +137,12 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void SetMoveForwardState() {
-		Manager.instance.UpdateDistanceCount ();
+		//Debug.Log("furthestZPosition now: " + furthestZPosition + " and current Z Pos; " + currentPosZ);
+		
+		if ( currentPosZ > furthestZPosition) {
+			furthestZPosition = currentPosZ;
+			Manager.instance.UpdateDistanceCount ();	
+		}
 	}
 
 	void IsVisible() { 

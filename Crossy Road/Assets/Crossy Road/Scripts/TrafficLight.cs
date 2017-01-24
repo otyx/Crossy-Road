@@ -3,17 +3,17 @@ using System.Collections;
 
 public class TrafficLight : MonoBehaviour {
 
-	public GameObject light = null;
+	public GameObject trafficLight = null;
 
 	void OnTriggerEnter (Collider other) {
 		if (other.tag.Equals ("train")) {
-			light.SetActive (true);
+			trafficLight.SetActive (true);
 		}
 	}
 
 	void OnTriggerExit(Collider other) {
 		if (other.tag.Equals ("train")) {
-			light.SetActive (false);
+			trafficLight.SetActive (false);
 		}
 	}
 }

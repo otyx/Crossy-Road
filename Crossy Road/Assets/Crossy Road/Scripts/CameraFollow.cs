@@ -18,7 +18,7 @@ public class CameraFollow : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 		if (!Manager.instance.CanPlay ()) return;
 
 		if (autoMove) {
